@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login | Taquería Río Grande</title>
+
+<link rel="icon" href="imagenes/logo1.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="login.css">
+
+</head>
+
+<body>
+
+<div class="background-circle circle1"></div>
+<div class="background-circle circle2"></div>
+
+<main class="login-container">
+
+<div class="login-card">
+
+<img src="imagenes/logo1.png" alt="Logo" class="logo">
+
+<h1>Taquería Río Grande</h1>
+
+<p class="subtitulo">
+
+Sistema Administrativo
+
+</p>
+
+<button id="googleLogin" class="google-btn">
+
+<img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google">
+
+<span>Continuar con Google</span>
+
+</button>
+
+<div class="linea"></div>
+
+<p class="mensaje">
+
+Solo personal autorizado puede acceder al sistema.
+
+</p>
+
+<div class="seguridad">
+
+<i class="fa-solid fa-shield-halved"></i>
+
+<span>Acceso protegido con Google</span>
+
+</div>
+
+</div>
+
+</main>
+
+<footer>
+
+© 2026 Taquería Río Grande
+
+</footer>
+
+<div class="modal" id="modalNombre">
+
+<div class="modal-card">
+
+<h2>👋 Bienvenido</h2>
+
+<p>
+
+Es la primera vez que inicias sesión.
+
+</p>
+
+<p>
+
+¿Cómo quieres aparecer en los pedidos?
+
+</p>
+
+<input
+type="text"
+id="nombreInput"
+placeholder="Escribe tu nombre">
+
+<button id="guardarNombre">
+
+Guardar
+
+</button>
+
+</div>
+
+</div>
+
+<script type="module" src="firebase.js"></script>
+<script type="module" src="login.js"></script>
+
+</body>
+
+</html>
