@@ -1,42 +1,83 @@
 import { db } from "./firebase.js";
 
-import {
-
+import{
 collection,
 query,
 where,
 orderBy,
 onSnapshot,
 doc,
+getDoc,
 updateDoc
-
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+}from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const lista=document.getElementById("listaPedidos");
-
 const totalPendientes=document.getElementById("totalPendientes");
-
 const ventasPendientes=document.getElementById("ventasPendientes");
 
+let pedidos=[];
+
 const consulta=query(
-
 collection(db,"pedidos"),
-
-where("estado","==","pendiente"),
-
+where("estado","==","cocinando"),
 orderBy("folio","asc")
-
 );
 
 onSnapshot(consulta,(snapshot)=>{
 
+pedidos=[];
+
+snapshot.forEach(documento=>{
+
+const pedido={
+
+id:documento.id,
+
+...documento.data()
+
+};
+
+if(
+
+!Array.isArray(pedido.ordenesCocina)
+
+){
+
+return;
+
+}
+
+pedido.ordenesCocina.forEach(orden=>{
+
+if(
+
+orden.estado==="cocinando"
+
+){
+
+pedidos.push({
+
+pedido,
+
+orden
+
+});
+
+}
+
+});
+
+});
+
+renderPedidos();
+
+});
+
+function renderPedidos(){
+
 lista.innerHTML="";
 
-let cantidad=0;
-
-let venta=0;
-
-if(snapshot.empty){
+if(pedidos.length===0){
 
 lista.innerHTML=`
 
@@ -61,40 +102,122 @@ Los nuevos pedidos aparecerán aquí automáticamente.
 `;
 
 totalPendientes.textContent="0";
-
 ventasPendientes.textContent="$0.00";
 
 return;
 
 }
 
-snapshot.forEach(documento=>{
+const normales=[];
+const agregados=[];
 
-const pedido=documento.data();
+pedidos.forEach(item=>{
 
-cantidad++;
+if(item.orden.tipo==="Agregado"){
 
-venta+=pedido.total;
+agregados.push(item);
 
-crearTarjeta(documento.id,pedido);
+}else{
+
+normales.push(item);
+
+}
 
 });
 
-totalPendientes.textContent=cantidad;
+const visibles=normales.slice(0,2);
 
-ventasPendientes.textContent="$"+venta.toFixed(2);
+const mostrar=[
+
+...visibles,
+...agregados
+
+];
+
+mostrar.forEach(item=>{
+
+lista.innerHTML+=crearTarjeta(
+
+item.pedido,
+
+item.orden
+
+);
 
 });
 
-function crearTarjeta(id,pedido){
+const ocultos=Math.max(0,normales.length-2);
 
-let htmlProductos="";
+totalPendientes.textContent=pedidos.length;
+ventasPendientes.textContent=ocultos+" en espera";
 
-Object.values(pedido.productos).forEach(producto=>{
+}
 
-htmlProductos+=`
+function crearTarjeta(
 
-<div class="item">
+pedido,
+
+orden
+
+){
+
+let html=`
+
+<div class="pedido">
+
+<div class="pedidoHeader">
+
+<div>
+
+<h2>
+
+🍳 Orden ${orden.id}
+
+</h2>
+
+<p>
+
+🍽 Mesa ${pedido.mesa}
+
+</p>
+
+<p>
+
+🧾 Pedido ${pedido.folioTexto}
+
+</p>
+
+</div>
+
+<div class="estadoCocinando">
+
+🍳 ${orden.tipo==="Inicial" ? "Pedido Inicial" : "Agregado"}
+
+</div>
+
+</div>
+
+`;
+
+orden.personas.forEach((persona,index)=>{
+
+html+=`
+
+<div class="persona">
+
+<h3>
+
+👤 ${persona.nombre||`Persona ${index+1}`}
+
+</h3>
+
+`;
+
+persona.productos.forEach(producto=>{
+
+html+=`
+
+<div class="producto">
 
 <span>
 
@@ -114,107 +237,111 @@ x${producto.cantidad}
 
 });
 
-lista.innerHTML+=`
+html+=`
 
-<div class="pedido">
+<div class="personaTotal">
 
-<div class="encabezado">
+<span>Total</span>
 
-<h2>
+<strong>
 
-🍽 Mesa ${pedido.mesa}
+$${persona.total.toFixed(2)}
 
-</h2>
+</strong>
 
-<span class="estado">
+</div>
 
-Pendiente
+</div>
+
+`;
+
+});
+
+if(
+Array.isArray(orden.productosMesa)
+&&
+orden.productosMesa.length
+){
+
+html+=`
+
+<div class="persona">
+
+<h3>
+
+🍽 Productos para la Mesa
+
+</h3>
+
+`;
+
+orden.productosMesa.forEach(producto=>{
+
+html+=`
+
+<div class="producto">
+
+<span>
+
+${producto.nombre}
 
 </span>
 
-</div>
-
-<div class="info">
-
-<div>
-
 <strong>
 
-Pedido
+x${producto.cantidad}
 
 </strong>
 
-#${pedido.folioTexto}
+</div>
+
+`;
+
+});
+
+html+=`
+
+</div>
+
+`;
+
+}
+
+html+=`
+
+<div class="pedidoFooter">
+
+<div>
+
+💰
+
+<strong>
+
+$${orden.total.toFixed(2)}
+
+</strong>
 
 </div>
 
 <div>
 
-<strong>
-
-Mesero
-
-</strong>
+👨‍🍳
 
 ${pedido.mesero}
 
 </div>
 
-<div>
-
-<strong>
-
-Cliente
-
-</strong>
-
-${pedido.cliente||"Sin nombre"}
-
 </div>
 
-<div>
-
-<strong>
-
-Celular
-
-</strong>
-
-${pedido.celular||"No registrado"}
-
-</div>
-
-</div>
-
-<div class="productos">
-
-${htmlProductos}
-
-</div>
-
-<div class="total">
-
-<span>
-
-Total
-
-</span>
-
-<strong>
-
-$${pedido.total.toFixed(2)}
-
-</strong>
-
-</div>
-
-<div class="botones">
+<div class="accionesPedido">
 
 <button
 
-class="btnVoz"
+class="btnEscuchar"
 
-onclick="leerPedido('${id}')">
+data-id="${pedido.id}"
+
+>
 
 🔊 Escuchar
 
@@ -222,21 +349,27 @@ onclick="leerPedido('${id}')">
 
 <button
 
-class="btnAgregar"
+class="btnEntregado"
 
-onclick="agregarPedido('${id}')">
+data-pedido="${pedido.id}"
 
-➕ Agregar
+data-orden="${orden.id}"
+
+>
+
+✅ Entregado
 
 </button>
 
 <button
 
-class="btnEntregado"
+class="btnEliminar"
 
-onclick="entregarPedido('${id}')">
+data-id="${pedido.id}"
 
-✅ Entregado
+>
+
+❌ Eliminar
 
 </button>
 
@@ -246,9 +379,154 @@ onclick="entregarPedido('${id}')">
 
 `;
 
+return html;
+
+}
+function leerPedido(id){
+
+const item=pedidos.find(p=>p.pedido.id===id);
+
+if(!item){
+
+return;
+
 }
 
-window.entregarPedido=async(id)=>{
+const pedido=item.pedido;
+
+const orden=item.orden;
+
+if(!pedido){
+
+return;
+
+}
+
+speechSynthesis.cancel();
+
+let texto=`Pedido ${pedido.folioTexto}. `;
+
+texto+=`Mesa ${pedido.mesa}. `;
+
+orden.personas.forEach((persona,index)=>{
+
+texto+=`${persona.nombre||`Persona ${index+1}`}. `;
+
+persona.productos.forEach(producto=>{
+
+texto+=`${producto.cantidad} ${producto.nombre}. `;
+
+});
+
+});
+
+if(
+Array.isArray(orden.productosMesa)
+&&
+orden.productosMesa.length
+){
+
+texto+="Productos para la mesa. ";
+
+orden.productosMesa.forEach(producto=>{
+
+texto+=`${producto.cantidad} ${producto.nombre}. `;
+
+});
+
+}
+
+const voz=new SpeechSynthesisUtterance(texto);
+
+voz.lang="es-MX";
+voz.rate=.95;
+voz.pitch=1;
+
+speechSynthesis.speak(voz);
+
+}
+
+async function entregarPedido(pedidoId,ordenId){
+
+try{
+
+const referencia=doc(db,"pedidos",pedidoId);
+
+const documento=await getDoc(referencia);
+
+if(!documento.exists()){
+
+return;
+
+}
+
+const pedido=documento.data();
+
+const ordenes=[...pedido.ordenesCocina];
+
+const indice=ordenes.findIndex(
+
+orden=>orden.id===ordenId
+
+);
+
+if(indice===-1){
+
+return;
+
+}
+
+ordenes[indice]={
+
+...ordenes[indice],
+
+estado:"entregado"
+
+};
+
+const quedanPendientes=
+
+ordenes.some(
+
+orden=>orden.estado==="cocinando"
+
+);
+
+const datosActualizar={
+
+ordenesCocina:ordenes
+
+};
+
+if(!quedanPendientes){
+
+datosActualizar.estado="entregado";
+
+datosActualizar.entregado=true;
+
+}
+
+await updateDoc(
+
+referencia,
+
+datosActualizar
+
+);
+
+}catch(error){
+
+console.error(error);
+
+alert("No fue posible entregar la orden.");
+
+}
+
+}
+
+async function cancelarPedido(id){
+
+try{
 
 await updateDoc(
 
@@ -256,36 +534,96 @@ doc(db,"pedidos",id),
 
 {
 
-estado:"entregado",
-
-entregado:true
+estado:"cancelado"
 
 }
 
 );
 
-};
+}catch(error){
 
-window.leerPedido=(id)=>{
+console.error(error);
 
-const tarjeta=[...document.querySelectorAll(".pedido")]
+alert("No fue posible cancelar el pedido.");
 
-.find(t=>t.innerHTML.includes(id));
+}
 
-const texto=tarjeta.innerText;
+}
 
-speechSynthesis.cancel();
+document.addEventListener(
 
-speechSynthesis.speak(
+"click",
 
-new SpeechSynthesisUtterance(texto)
+async(e)=>{
+
+const btnEscuchar=e.target.closest(".btnEscuchar");
+
+if(btnEscuchar){
+
+leerPedido(
+
+btnEscuchar.dataset.id
 
 );
 
-};
+return;
 
-window.agregarPedido=(id)=>{
+}
 
-window.location.href=`agregarProductos.html?id=${id}`;
+const btnEntregado=e.target.closest(".btnEntregado");
 
-};
+if(btnEntregado){
+
+if(
+
+confirm(
+
+"¿Marcar pedido como entregado?"
+
+)
+
+){
+
+await entregarPedido(
+
+btnEntregado.dataset.pedido,
+
+btnEntregado.dataset.orden
+
+);
+
+}
+
+return;
+
+}
+
+const btnEliminar=e.target.closest(".btnEliminar");
+
+if(btnEliminar){
+
+if(
+
+confirm(
+
+"¿Cancelar este pedido?"
+
+)
+
+){
+
+await cancelarPedido(
+
+btnEliminar.dataset.id
+
+);
+
+}
+
+return;
+
+}
+
+}
+
+);

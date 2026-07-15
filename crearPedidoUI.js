@@ -27,6 +27,9 @@ export const botonExtras=document.getElementById("mostrarExtras");
 export const botonLimpiar=document.getElementById("limpiarPedido");
 export const botonCrear=document.getElementById("crearPedido");
 
+export const listaPersonas=document.getElementById("listaPersonas");
+export const botonAgregarPersona=document.getElementById("agregarPersona");
+
 export let usuarioActual=null;
 
 export let nombreUsuario="";

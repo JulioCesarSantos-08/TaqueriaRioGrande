@@ -4,15 +4,21 @@ productos
 
 import {
 cantidades
-} from "./crearPedido2.js";
+} from "./crearPedidoProductos.js";
 
 import {
+
 mesa,
 cliente,
 celular,
 nombreUsuario,
-botonCrear
-} from "./crearPedido1.js";
+
+botonCrear,
+botonLimpiar,
+botonExtras,
+contenidoExtras
+
+} from "./crearPedidoUI.js";
 
 let pedidoActual=null;
 

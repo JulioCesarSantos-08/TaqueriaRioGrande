@@ -152,19 +152,17 @@ gap:20px;
 }
 
 .pedido{
+    background:#fff;
+    border-radius:22px;
+    padding:22px;
+    margin-bottom:22px;
+    border-left:8px solid #b22222;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    transition:.25s;
+}
 
-background:white;
-
-border-radius:22px;
-
-padding:20px;
-
-box-shadow:0 8px 22px rgba(0,0,0,.08);
-
-border-left:8px solid var(--rojo);
-
-animation:aparecer .3s ease;
-
+.pedido:hover{
+    transform:translateY(-3px);
 }
 
 .encabezado{
@@ -396,5 +394,233 @@ grid-template-columns:1fr;
 grid-template-columns:1fr;
 
 }
+
+}
+
+.pedidoHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    margin-bottom:20px;
+}
+
+.pedidoHeader h2{
+    margin:0;
+    font-size:28px;
+    color:#8b1d1d;
+}
+
+.pedidoHeader p{
+    margin-top:6px;
+    color:#777;
+    font-size:15px;
+}
+
+.estadoCocinando{
+    background:#ff9800;
+    color:#fff;
+    padding:8px 18px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.persona{
+
+    background:#fafafa;
+
+    border-radius:16px;
+
+    padding:18px;
+
+    margin:18px 0;
+
+    border:1px solid #ececec;
+
+}
+
+.persona h3{
+
+    margin-top:0;
+
+    color:#8b1d1d;
+
+    font-size:22px;
+
+}
+
+.producto{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:10px 0;
+
+    border-bottom:1px dashed #ddd;
+
+}
+
+.producto:last-child{
+
+    border-bottom:none;
+
+}
+
+.personaTotal{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:15px;
+
+    font-weight:bold;
+
+    font-size:18px;
+
+    color:#8b1d1d;
+
+}
+
+.pedidoFooter{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:22px;
+
+    padding-top:18px;
+
+    border-top:2px solid #eee;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.accionesPedido{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:15px;
+
+margin-top:25px;
+
+flex-wrap:wrap;
+
+}
+
+.btnEntregado{
+
+background:#16a34a;
+
+color:white;
+
+border:none;
+
+padding:14px 24px;
+
+font-size:16px;
+
+font-weight:700;
+
+border-radius:12px;
+
+cursor:pointer;
+
+transition:.25s;
+
+min-width:170px;
+
+}
+
+.btnEntregado:hover{
+
+background:#15803d;
+
+transform:translateY(-2px);
+
+}
+
+.btnEntregado:hover{
+
+transform:scale(1.05);
+
+background:#15803d;
+
+}
+
+.btnEscuchar{
+
+background:#2563eb;
+
+color:#fff;
+
+border:none;
+
+padding:14px 24px;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+min-width:170px;
+
+}
+
+.btnEscuchar:hover{
+
+background:#1d4ed8;
+
+transform:translateY(-2px);
+
+}
+
+.btnEliminar{
+
+background:#dc2626;
+
+color:#fff;
+
+border:none;
+
+padding:14px 24px;
+
+border-radius:12px;
+
+font-size:16px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.25s;
+
+min-width:170px;
+
+}
+
+.btnEliminar:hover{
+
+background:#b91c1c;
+
+transform:translateY(-2px);
 
 }

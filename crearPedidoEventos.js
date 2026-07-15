@@ -4,20 +4,33 @@ productos
 
 import {
 cantidades
-} from "./crearPedido2.js";
+} from "./crearPedidoProductos.js";
 
 import {
+
 mesa,
+cliente,
+celular,
+
+contenidoExtras,
+botonExtras,
+botonLimpiar,
+
 totalPedido,
 contadorProductos,
 botonCrear
-} from "./crearPedido1.js";
+
+} from "./crearPedidoUI.js";
 
 document.addEventListener("pedido-listo",()=>{
 
 activarBotones();
 
 actualizarTotales();
+
+//configurarExtras();
+
+//configurarLimpiar();
 
 mesa.addEventListener("input",validarPedido);
 

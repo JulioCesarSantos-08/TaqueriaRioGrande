@@ -4,16 +4,20 @@ productos
 
 import {
 cantidades
-} from "./crearPedido2.js";
+} from "./crearPedidoProductos.js";
 
 import {
+
 contenidoExtras,
 botonExtras,
 botonLimpiar,
+botonCrear,
 mesa,
 cliente,
-celular
-} from "./crearPedido1.js";
+celular,
+nombreUsuario
+
+} from "./crearPedidoUI.js";
 
 document.addEventListener("pedido-listo",()=>{
 

@@ -1,7 +1,7 @@
 import {
 listaProductos,
 contenidoExtras
-} from "./crearPedido1.js";
+} from "./crearPedidoUI.js";
 
 import {
 productos
@@ -31,19 +31,27 @@ let categoriaActual="";
 
 productos.forEach(producto=>{
 
-const destino=producto.extra
+const destino=
+
+producto.categoria==="Oculto"
+
 ?contenidoExtras
+
 :listaProductos;
 
-if(categoriaActual!==producto.categoria){
+if(
+
+categoriaActual!==producto.categoria &&
+
+producto.categoria!=="Oculto"
+
+){
 
 categoriaActual=producto.categoria;
 
 destino.innerHTML+=`
 
 <h3 class="categoria">
-
-${producto.icono}
 
 ${producto.categoria}
 

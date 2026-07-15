@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pedidos en Espera | Taquería Río Grande</title>
+
+<link rel="icon" href="imagenes/logo1.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+
+<link rel="stylesheet" href="pedidosEspera.css">
+
+</head>
+
+<body>
+
+<header>
+
+<a href="panel.html" class="volver">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</a>
+
+<div>
+
+<h1>
+
+Pedidos en Espera
+
+</h1>
+
+<p>
+
+Taquería Río Grande
+
+</p>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="estadisticas">
+
+<div class="cardEstadistica">
+
+<h2 id="totalPedidos">
+
+0
+
+</h2>
+
+<p>
+
+Pedidos Esperando Cobro
+
+</p>
+
+</div>
+
+<div class="cardEstadistica">
+
+<h2 id="totalVenta">
+
+$0.00
+
+</h2>
+
+<p>
+
+Venta Pendiente
+
+</p>
+
+</div>
+
+</section>
+
+<section
+
+id="listaPedidos"
+
+class="listaPedidos"
+
+>
+
+</section>
+
+<div
+id="modalAgregar"
+class="modalAgregar oculto"
+>
+
+<div class="modalContenido">
+
+<div class="modalHeader">
+
+<h2>
+
+➕ Agregar Productos
+
+</h2>
+
+<button
+id="cerrarAgregar"
+class="cerrarModal"
+>
+
+✕
+
+</button>
+
+</div>
+
+<div class="modalInfo">
+
+<p>
+
+<strong>Pedido:</strong>
+
+<span id="modalFolio">
+
+000000
+
+</span>
+
+</p>
+
+<p>
+
+<strong>Mesa:</strong>
+
+<span id="modalMesa">
+
+1
+
+</span>
+
+</p>
+
+</div>
+
+<div class="campoModal">
+
+<label>
+
+Persona
+
+</label>
+
+<select
+id="personaAgregar"
+>
+
+</select>
+
+</div>
+
+<div
+id="listaProductosAgregar"
+class="listaProductosAgregar"
+>
+
+</div>
+
+<div class="modalBotones">
+
+<button
+id="cancelarAgregar"
+class="btnCancelar"
+>
+
+Cancelar
+
+</button>
+
+<button
+id="guardarAgregar"
+class="btnGuardar"
+>
+
+Guardar Agregado
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</main>
+
+<script type="module" src="firebase.js"></script>
+
+<script type="module" src="pedidosEspera.js"></script>
+
+</body>
+
+</html>
