@@ -78,13 +78,23 @@ data-producto="${producto.id}">
 
 </button>
 
-<span
+<input
 
-id="cantidad-${idPersona}-${producto.id}">
+type="number"
 
-0
+min="0"
 
-</span>
+value="0"
+
+class="cantidadInput"
+
+id="cantidad-${idPersona}-${producto.id}"
+
+data-persona="${idPersona}"
+
+data-producto="${producto.id}"
+
+>
 
 <button
 

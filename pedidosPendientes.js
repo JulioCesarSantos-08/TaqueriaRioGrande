@@ -177,13 +177,13 @@ let html=`
 
 <p>
 
-🍽 Mesa ${pedido.mesa}
+🧾 Pedido ${pedido.folioTexto}
 
 </p>
 
 <p>
 
-🧾 Pedido ${pedido.folioTexto}
+🍽 Mesa ${pedido.mesa}
 
 </p>
 
@@ -191,7 +191,7 @@ let html=`
 
 <div class="estadoCocinando">
 
-🍳 ${orden.tipo==="Inicial" ? "Pedido Inicial" : "Agregado"}
+${orden.tipo==="Inicial" ? "🟢 Pedido Inicial" : "🟠 Agregado"}
 
 </div>
 

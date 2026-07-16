@@ -52,6 +52,92 @@ idProducto
 
 });
 
+document.addEventListener("input",(e)=>{
+
+const input=e.target.closest(".cantidadInput");
+
+if(!input){
+
+return;
+
+}
+
+const idPersona=Number(
+
+input.dataset.persona
+
+);
+
+const idProducto=
+
+input.dataset.producto;
+
+const persona=
+
+personas.find(
+
+p=>p.id===idPersona
+
+);
+
+if(!persona){
+
+return;
+
+}
+
+const cantidad=Math.max(
+
+0,
+
+Number(input.value)||0
+
+);
+
+const producto=productos.find(
+
+p=>p.id===idProducto
+
+);
+
+if(!producto){
+
+return;
+
+}
+
+if(cantidad===0){
+
+delete persona.productos[idProducto];
+
+}else{
+
+persona.productos[idProducto]={
+
+id:producto.id,
+
+nombre:producto.nombre,
+
+precio:producto.precio,
+
+cantidad
+
+};
+
+}
+
+actualizarVista(
+
+idPersona,
+
+idProducto,
+
+persona
+
+);
+
+});
+
 function agregarProducto(
 
 idPersona,
@@ -175,11 +261,13 @@ const span=document.getElementById(
 
 if(span){
 
-span.textContent =
+span.value=
 
 persona.productos[idProducto]
+
 ? persona.productos[idProducto].cantidad
-: 0;
+
+:0;
 
 }
 

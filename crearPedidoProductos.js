@@ -97,12 +97,14 @@ data-id="${producto.id}">
 
 </button>
 
-<span
-id="cantidad-${producto.id}">
-
-0
-
-</span>
+<input
+type="number"
+min="0"
+value="0"
+class="cantidadInput"
+id="cantidad-${producto.id}"
+data-id="${producto.id}"
+>
 
 <button
 class="mas"

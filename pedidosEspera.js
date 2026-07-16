@@ -2,15 +2,17 @@ import { db } from "./firebase.js";
 import { productos } from "./productos.js";
 import { guardarAgregado } from "./pedidoAgregarService.js";
 
-import {
+import{
 collection,
 query,
 where,
 orderBy,
 onSnapshot,
 doc,
-updateDoc
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+updateDoc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const listaPedidos=document.getElementById("listaPedidos");
 const totalPedidos=document.getElementById("totalPedidos");
@@ -310,6 +312,8 @@ async function marcarPagado(id){
 
 try{
 
+const ahora=new Date();
+
 await updateDoc(
 
 doc(db,"pedidos",id),
@@ -318,7 +322,25 @@ doc(db,"pedidos",id),
 
 estado:"pagado",
 
-pagado:true
+pagado:true,
+
+fechaPago:ahora.toLocaleDateString("es-MX"),
+
+horaPago:ahora.toLocaleTimeString(
+
+"es-MX",
+
+{
+
+hour:"2-digit",
+
+minute:"2-digit"
+
+}
+
+),
+
+fechaPagoServidor:serverTimestamp()
 
 }
 

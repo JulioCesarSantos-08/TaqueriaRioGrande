@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Historial de Ventas | Taquería Río Grande</title>
+
+<link rel="stylesheet" href="historialVentas.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<header>
+
+<button id="volver">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+<div>
+
+<h1>Historial de Ventas</h1>
+
+<p>Taquería Río Grande</p>
+
+</div>
+
+</header>
+
+<main>
+
+<section class="estadisticas">
+
+<div class="card">
+
+<h2 id="ventasHoy">$0.00</h2>
+
+<p>Ventas del Día</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="pedidosHoy">0</h2>
+
+<p>Pedidos Pagados</p>
+
+</div>
+
+<div class="card">
+
+<h2 id="ticketPromedio">$0.00</h2>
+
+<p>Ticket Promedio</p>
+
+</div>
+
+</section>
+
+<section class="busqueda">
+
+<input
+id="buscador"
+placeholder="Buscar por cliente, folio, mesa o mesero..."
+>
+
+</section>
+
+<div class="filtrosHistorial">
+
+<button class="btnFiltro activo" data-filtro="todos">
+
+Todos
+
+</button>
+
+<button class="btnFiltro" data-filtro="hoy">
+
+Hoy
+
+</button>
+
+<button class="btnFiltro" data-filtro="semana">
+
+Semana
+
+</button>
+
+<button class="btnFiltro" data-filtro="mes">
+
+Mes
+
+</button>
+
+</div>
+
+<section
+
+id="contenedorHistorial"
+
+class="contenedorHistorial"
+
+>
+
+</section>
+
+</main>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+<script type="module" src="firebase.js"></script>
+
+<script type="module" src="historialVentas.js"></script>
+
+<div id="modalDetalle" class="modalDetalle">
+
+<div class="contenidoDetalle">
+
+<div class="detalleHeader">
+
+<h2>🧾 Detalle del Pedido</h2>
+
+<button id="cerrarDetalle">
+
+✕
+
+</button>
+
+</div>
+
+<div id="contenidoDetalle">
+
+</div>
+
+</div>
+
+</div>
+
+<div
+id="ticketCompartir"
+style="
+position:absolute;
+left:-9999px;
+top:0;
+width:430px;
+background:white;
+padding:30px;
+">
+</div>
+
+</body>
+
+</html>

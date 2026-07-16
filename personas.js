@@ -59,6 +59,10 @@ export function agregarPersona(){
 
         </div>
 
+<div class="personaAcciones">
+
+    <div class="campoNombrePersona">
+
         <label>
 
             Nombre (Opcional)
@@ -75,19 +79,23 @@ export function agregarPersona(){
 
         >
 
-        <button
+    </div>
 
-            type="button"
+    <button
 
-            class="eliminarPersona"
+        type="button"
 
-            data-persona="${contador}">
+        class="eliminarPersona"
 
-            <i class="fa-solid fa-trash"></i>
+        data-persona="${contador}">
 
-            Eliminar Persona
+        <i class="fa-solid fa-trash"></i>
 
-        </button>
+        Eliminar Persona
+
+    </button>
+
+</div>
 
         <h4 class="tituloPedidoPersona">
 
