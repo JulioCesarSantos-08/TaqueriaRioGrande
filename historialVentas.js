@@ -909,7 +909,7 @@ font-size:16px;
 color:#666;
 ">
 
-❤️ Gracias por su visita ❤️
+❤️ Gracias Por Taquear Con Nosotras !! ❤️
 
 <br><br>
 
